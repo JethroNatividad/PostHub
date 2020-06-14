@@ -1,6 +1,10 @@
-const express = require("express"),
-bodyParser = require("body-parser"),
-app = express();
+const express          = require("express"),
+bodyParser             = require("body-parser"),
+mongoose               = require("mongoose"),
+Post                   = require("./models/post"),
+seedDB                 = require("./seed"),
+app                    = express();
+
 let port = 3000;
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended:true}));
@@ -8,23 +12,24 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.get("/", (req, res)=>{
     res.render("landing");
 });
-var posts = [
-    {
-        title: "post 1",
-        image: "https://images.unsplash.com/photo-1591993221022-c3b5ee009325?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-    },
-    {
-        title: "post 1",
-        image: "https://images.unsplash.com/photo-1591993221022-c3b5ee009325?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-    },
-    {
-        title: "post 1",
-        image: "https://images.unsplash.com/photo-1591993221022-c3b5ee009325?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-    }
-]
+//mongoose
+//mongoose setup
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+mongoose.connect("mongodb+srv://jethrosama:undeadban07@master-2viyl.mongodb.net/posthublocal?retryWrites=true&w=majority");
+seedDB(); //seeder
 //posts index
-app.get("/posts",(req, res)=>{
-    res.render("posts/index", {posts: posts, page: "active"});
+app.get("/posts", (req, res)=>{
+    Post.find({}, (err, data)=>{
+        if (err) {
+            console.log(error)
+            return res.redirect("/")
+        } else {
+            res.render("posts/index", {posts: data, page: "active"});
+        }
+    });    
 });
 //post new
 //show form
@@ -34,7 +39,13 @@ app.get("/posts/new", (req, res)=>{
 //post create
 //handle create post logic
 app.post("/posts", (req, res)=>{
-    posts.push(req.body.post);
-    res.redirect("/posts");
+    Post.create(req.body.post, (err)=>{
+        if (err) {
+            console.log(error)
+            return res.redirect("/")
+        } else {
+            res.redirect("/posts"); 
+        }
+    })
 })
 app.listen(port, ()=> console.log("server started"));
