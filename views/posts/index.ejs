@@ -1,10 +1,11 @@
 <%- include("../partials/top") %> 
 
-<h1>index page</h1>
+<h1>Posts for you</h1>
 <% posts.forEach((post)=>{ %>
     <div>
         <h3><%= post.title %></h3>
         <img src="<%= post.image %>" alt="">
+        <a class="btn btn-primary" href="/posts/<%= post._id %> "> View post</a>
     </div>
 <% }) %>
 <%- include("../partials/bot") %> 
