@@ -1,0 +1,10 @@
+<%- include("../partials/top") %> 
+
+<h1>index page</h1>
+<% posts.forEach((post)=>{ %>
+    <div>
+        <h3><%= post.title %></h3>
+        <img src="<%= post.image %>" alt="">
+    </div>
+<% }) %>
+<%- include("../partials/bot") %> 

@@ -1,0 +1,18 @@
+<%- include("../partials/top") %> 
+
+<h1>create a post</h1>
+<form action="/posts" method="post">
+    <div>
+        <label for="title">Title</label>
+        <input type="text" id="title" name="post[title]">
+    </div>
+    <div>
+        <label for="image url">Image Url</label>
+        <input type="text" id="title" name="post[image]">
+    </div>
+    <div>
+        <button>Post</button>
+    </div>
+</form>
+
+<%- include("../partials/bot") %> 
