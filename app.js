@@ -85,4 +85,15 @@ app.put("/posts/:id", (req, res)=>{
     res.redirect("/posts/"+ req.params.id)
   })
 })
+//Destroy route
+//handle deleting post logic
+app.delete("/posts/:id", (req, res)=>{
+  Post.findByIdAndRemove(req.params.id, (err, data)=>{
+    if (err) {
+      console.log(error)
+      return res.redirect("/")
+    }
+    res.redirect("/posts")
+  })
+})
 app.listen(port, ()=> console.log("server started"));

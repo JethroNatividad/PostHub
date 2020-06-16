@@ -1,6 +1,6 @@
 <%- include("../partials/top") %> 
 
-<h1>Update <%= post.title %></h1>
+<h1>Edit <%= post.title %></h1>
 <form action="/posts/<%= post._id %>?_method=PUT" method="post">
     <div class="form-group">
         <label for="title">Title</label>
@@ -14,7 +14,10 @@
         <label for="body">Body</label>
         <textarea class="form-control" id="body" name="post[body]" rows="6"><%= post.body %></textarea>
     </div>
-        <button class="btn btn-primary">Submit</button>
+        <button class="btn btn-primary btn-block">Submit</button>
 </form>
+  <form class="mt-2" action="/posts/<%= post._id %>?_method=DELETE" method="post">
+    <button class="btn btn-danger btn-block">Delete post</button>
+  </form>
 
 <%- include("../partials/bot") %> 
