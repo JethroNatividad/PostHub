@@ -6,6 +6,9 @@
                 <input type="text" name="comment[text]" class="form-control" value="<%= comment.text %>">
                 <button class="btn btn-primary btn-block mt-3">Submit</button>
             </form>
+            <form class="mt-2" action="/posts/<%= postId %>/comments/<%= comment._id %>?_method=DELETE" method="post">
+                <button class="btn btn-danger btn-block">Delete comment</button>
+            </form>
         </div>
         <div class="col-md-3">
         </div>

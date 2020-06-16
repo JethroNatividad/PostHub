@@ -94,6 +94,9 @@ app.delete("/posts/:id", (req, res)=>{
       console.log(error)
       return res.redirect("/")
     }
+    Comment.deleteMany({_id: {
+      $in: data.comments
+    }})
     res.redirect("/posts")
   })
 })
@@ -146,6 +149,19 @@ app.put("/posts/:id/comments/:commentId", (req, res)=>{
     }
       //redirect somewhere
       res.redirect("/posts/"+ req.params.id)
+  })
+})
+//Destroy route
+//handle destroy comment
+app.delete("/posts/:id/comments/:commentId", (req, res)=>{
+  //find comment and delete
+  Comment.findByIdAndRemove(req.params.commentId, (err)=>{
+    if (err) {
+      console.log(error)
+      return res.redirect("/")
+    }
+    //redirect somewhere
+    res.redirect("/posts/"+ req.params.id)
   })
 })
 
