@@ -1,7 +1,17 @@
 <%- include("../partials/top") %> 
-    <div>
-        <h1><%= post.title %></h1>
-        <img class="img-fluid" src="<%= post.image %>" alt="">
-        <p> <%= post.body %> </p>
-    </div>
+  <div class="row">
+        <div class="col-md-9">
+          <div class="card mb-3 mt-3">
+                <img src="<%= post.image %>" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= post.title %></h5>
+                  <p class="card-text"><%= post.body %></p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small>
+                    <i class="fas fa-cog"></i>
+                    </p>
+                  </div>
+                </div>
+        <div class="col-md-3">
+        </div>
+  </div>
 <%- include("../partials/bot") %> 

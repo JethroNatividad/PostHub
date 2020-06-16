@@ -2,6 +2,7 @@ const express          = require("express"),
 bodyParser             = require("body-parser"),
 mongoose               = require("mongoose"),
 Post                   = require("./models/post"),
+methodOverride         = require("method-override"),
 seedDB                 = require("./seed"),
 app                    = express();
 
@@ -9,6 +10,7 @@ let port = 3000;
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
+app.use(methodOverride("_method"));
 //landing page
 app.get("/", (req, res)=>{
     res.render("landing");
@@ -20,7 +22,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect("mongodb+srv://jethrosama:undeadban07@master-2viyl.mongodb.net/posthublocal?retryWrites=true&w=majority");
-seedDB(); //seeder
+//seedDB(); //seeder
 //posts index
 app.get("/posts", (req, res)=>{
     Post.find({}, (err, data)=>{
@@ -60,6 +62,27 @@ app.get("/posts/:id", (req, res)=>{
             res.render("posts/show", {post: data});
         }
     })
-    
+})
+//edit route
+//show edit form
+app.get("/posts/:id/edit", (req, res)=>{
+  Post.findById(req.params.id, (err, data)=>{
+    if (err) {
+      console.log(error)
+      return res.redirect("/")
+    }
+    res.render("posts/edit", {post: data})
+  })
+})
+//Update route
+//handle update logic
+app.put("/posts/:id", (req, res)=>{
+  Post.findByIdAndUpdate(req.params.id, req.body.post, (err, data)=>{
+    if (err) {
+      console.log(error)
+      return res.redirect("/")
+    }
+    res.redirect("/posts/"+ req.params.id)
+  })
 })
 app.listen(port, ()=> console.log("server started"));
