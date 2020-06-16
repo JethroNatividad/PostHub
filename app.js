@@ -2,6 +2,7 @@ const express          = require("express"),
 bodyParser             = require("body-parser"),
 mongoose               = require("mongoose"),
 Post                   = require("./models/post"),
+Comment                = require("./models/comment"),
 methodOverride         = require("method-override"),
 seedDB                 = require("./seed"),
 app                    = express();
@@ -54,7 +55,7 @@ app.post("/posts", (req, res)=>{
 //post show
 //render show page
 app.get("/posts/:id", (req, res)=>{
-    Post.findById(req.params.id, (err, data)=>{
+    Post.findById(req.params.id).populate("comments").exec((err, data)=>{
         if (err) {
             console.log(error)
             return res.redirect("/")
@@ -96,4 +97,56 @@ app.delete("/posts/:id", (req, res)=>{
     res.redirect("/posts")
   })
 })
+
+//========Comments==========
+//Create route
+//create comment and push to post
+app.post('/posts/:id/comments', (req, res)=>{
+  //create comment
+  req.body.comment.author = "Admin"
+  Comment.create(req.body.comment, (err, comment)=>{
+    if (err) {
+      console.log(error)
+      return res.redirect("/")
+    } 
+    //find post
+    Post.findById(req.params.id, (err, post)=>{
+      //push comment to post
+      post.comments.push(comment)
+      post.save((err)=>{
+        if (err) {
+          console.log(error)
+          return res.redirect("/")
+        }
+        //redirect somewhere
+        res.redirect("/posts/"+ req.params.id)
+      })
+    })
+  })
+})
+//Edit route
+//render edit
+app.get("/posts/:id/comments/:commentId/edit", (req, res)=>{
+  Comment.findById(req.params.commentId, (err, comment)=>{
+    if (err) {
+      console.log(error)
+      return res.redirect("/")
+    }
+    res.render("comments/edit", {comment: comment, postId: req.params.id})
+  })
+})
+//update route
+//handle update logic
+app.put("/posts/:id/comments/:commentId", (req, res)=>{
+  //find comment and update
+  Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, (err)=>{
+    if (err) {
+      console.log(error)
+      return res.redirect("/")
+    }
+      //redirect somewhere
+      res.redirect("/posts/"+ req.params.id)
+  })
+})
+
 app.listen(port, ()=> console.log("server started"));
