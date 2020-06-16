@@ -7,7 +7,9 @@
                   <h5 class="card-title"><%= post.title %></h5>
                   <p class="card-text"><%= post.body %></p>
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small>
-                    <i class="fas fa-cog"></i>
+                    <a href="/posts/<%= post._id %>/edit">
+                      <i class="fas fa-cog"></i>
+                    </a>
                     </p>
                   </div>
                 </div>
