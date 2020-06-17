@@ -23,6 +23,10 @@ router.get("/new",middleware.isLoggedIn, (req, res)=>{
 //post create
 //handle create post logic
 router.post("/",middleware.isLoggedIn, (req, res)=>{
+    req.body.post.author = {
+      username: req.user.username,
+      id: req.user._id
+    }
     Post.create(req.body.post, (err)=>{
         if (err) {
             console.log(error)
