@@ -17,18 +17,18 @@
                     <div class="card-header">
                       <form action="/posts/<%= post._id %>/comments" method="post">
                         <div class="row cont">
-                          <div class="col-9 col-sm-10">
+                          <div class="col-9">
                             <input type="text" name="comment[text]" class="form-control">
                           </div>
-                          <div class="col-3 col-sm-2">
-                            <button class="btn btn-primary"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                          <div class="col-3 ">
+                            <button class="btn btn-primary">Comment</i></button>
                           </div>
                         </div>
                       </form>
                       </div>
                     <div class="card-body">
                       <% post.comments.forEach((comment)=>{ %>
-                        <p><%= comment.author %> - <%= comment.text %> <a href="/posts/<%= post._id %>/comments/<%= comment._id %>/edit">Edit</a> </p>
+                        <p><%= comment.author.username %> - <%= comment.text %> <a href="/posts/<%= post._id %>/comments/<%= comment._id %>/edit">Edit</a> </p>
                       <% }) %>
                     </div>
                   </div>

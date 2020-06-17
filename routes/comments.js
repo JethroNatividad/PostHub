@@ -1,13 +1,17 @@
 const express          = require("express"),
 Post                   = require("../models/post"),
+middleware             = require("../middleware/index"),
 Comment                = require("../models/comment"),
 router                 = express.Router({mergeParams: true})
 
 //Create route
 //create comment and push to post
-router.post('/', (req, res)=>{
+router.post('/',middleware.isLoggedIn, (req, res)=>{
   //create comment
-  req.body.comment.author = "Admin"
+  req.body.comment.author = {
+    username: req.user.username,
+    id: req.user._id
+  }
   Comment.create(req.body.comment, (err, comment)=>{
     if (err) {
       console.log(error)

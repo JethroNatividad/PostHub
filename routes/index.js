@@ -10,7 +10,7 @@ router.get("/", (req, res)=>{
 });
 //render sign up page
 router.get("/signup", (req, res)=>{
-    res.render("index/signup")
+    res.render("index/signup", {page: "signup"})
 })
 //handle signup logic
 router.post("/signup", (req, res)=>{
@@ -30,7 +30,7 @@ router.post("/signup", (req, res)=>{
 })
 //render login page
 router.get("/login", (req, res)=>{
-    res.render("index/login")
+    res.render("index/login", {page: "login"})
 })
 //handle login logic
 router.post("/login", passport.authenticate("local", {

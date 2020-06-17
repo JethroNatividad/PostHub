@@ -1,5 +1,6 @@
 const express          = require("express"),
 Post                   = require("../models/post"),
+middleware             = require("../middleware/index"),
 Comment                = require("../models/comment"),
 router                 = express.Router()
 
@@ -16,12 +17,12 @@ router.get("/", (req, res)=>{
 });
 //post new
 //show form
-router.get("/new", (req, res)=>{
+router.get("/new",middleware.isLoggedIn, (req, res)=>{
     res.render("posts/new", {page: "create"})
 });
 //post create
 //handle create post logic
-router.post("/", (req, res)=>{
+router.post("/",middleware.isLoggedIn, (req, res)=>{
     Post.create(req.body.post, (err)=>{
         if (err) {
             console.log(error)
