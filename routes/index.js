@@ -20,7 +20,8 @@ router.post("/signup", (req, res)=>{
     User.register(newUser, req.body.password, (err, user)=>{
         if (err) {
             console.log(err)
-            return res.redirect("/posts")
+            req.flash("error", err.message)
+            return res.redirect("/signup")
         }
         passport.authenticate("local")(req, res, ()=>{
             console.log(user)
@@ -35,12 +36,15 @@ router.get("/login", (req, res)=>{
 //handle login logic
 router.post("/login", passport.authenticate("local", {
     successRedirect: "/posts",
-    failureRedirect: "/login"
+    failureRedirect: "/login",
+    failureFlash: true,
+    successFlash: "Welcome back"
 }), (req, res)=>{
 })
 //logout logic
 router.get("/logout", (req, res)=>{
     req.logout()
-    res.redirect("/")
+    req.flash("success", "Sucessfully logged out")
+    res.redirect("/posts")
 })
 module.exports = router

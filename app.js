@@ -5,6 +5,7 @@ Post                   = require("./models/post"),
 Comment                = require("./models/comment"),
 User                   = require("./models/user"),
 postsRoute             = require("./routes/posts"),
+flash                  = require("connect-flash"),
 commentsRoute          = require("./routes/comments"),
 indexRoute             = require("./routes/index"),
 methodOverride         = require("method-override"),
@@ -19,6 +20,7 @@ app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
+app.use(flash())
 //mongoose
 //mongoose setup
 mongoose.set('useNewUrlParser', true);
@@ -43,6 +45,8 @@ app.use(expressSession({
   //data of current user pass in all routes
     app.use((req , res, next)=>{
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
   });
 //seedDB(); //seeder
