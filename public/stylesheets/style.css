@@ -5,7 +5,3 @@
 p {
   word-wrap: break-word;
 }
-/* mobile 576 */
-@media only screen and (max-width: 576px), only screen and (max-device-width: 576px) {
-
-    }
