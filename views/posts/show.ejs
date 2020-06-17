@@ -16,12 +16,12 @@
                 <div class="card mt-2">
                     <div class="card-header">
                       <form action="/posts/<%= post._id %>/comments" method="post">
-                        <div class="row">
-                          <div class="col-sm-10">
+                        <div class="row cont">
+                          <div class="col-9 col-sm-10">
                             <input type="text" name="comment[text]" class="form-control">
                           </div>
-                          <div class="col-sm-2">
-                            <button class="btn btn-primary">Comment</button>
+                          <div class="col-3 col-sm-2">
+                            <button class="btn btn-primary"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                           </div>
                         </div>
                       </form>
