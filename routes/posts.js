@@ -50,7 +50,7 @@ router.get("/:id", (req, res)=>{
 })
 //edit route
 //show edit form
-router.get("/:id/edit", (req, res)=>{
+router.get("/:id/edit",middleware.checkPostOwnership, (req, res)=>{
   Post.findById(req.params.id, (err, data)=>{
     if (err) {
       console.log(error)
@@ -61,7 +61,7 @@ router.get("/:id/edit", (req, res)=>{
 })
 //Update route
 //handle update logic
-router.put("/:id", (req, res)=>{
+router.put("/:id",middleware.checkPostOwnership, (req, res)=>{
   Post.findByIdAndUpdate(req.params.id, req.body.post, (err, data)=>{
     if (err) {
       console.log(error)
@@ -72,7 +72,7 @@ router.put("/:id", (req, res)=>{
 })
 //Destroy route
 //handle deleting post logic
-router.delete("/:id", (req, res)=>{
+router.delete("/:id",middleware.checkPostOwnership, (req, res)=>{
   Post.findByIdAndRemove(req.params.id, (err, data)=>{
     if (err) {
       console.log(error)

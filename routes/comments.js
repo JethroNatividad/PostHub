@@ -34,7 +34,7 @@ router.post('/',middleware.isLoggedIn, (req, res)=>{
 })
 //Edit route
 //render edit
-router.get("/:commentId/edit", (req, res)=>{
+router.get("/:commentId/edit", middleware.checkCommentOwnership, (req, res)=>{
   Comment.findById(req.params.commentId, (err, comment)=>{
     if (err) {
       console.log(error)
@@ -45,7 +45,7 @@ router.get("/:commentId/edit", (req, res)=>{
 })
 //update route
 //handle update logic
-router.put("/:commentId", (req, res)=>{
+router.put("/:commentId",middleware.checkCommentOwnership, (req, res)=>{
   //find comment and update
   Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, (err)=>{
     if (err) {
@@ -58,7 +58,7 @@ router.put("/:commentId", (req, res)=>{
 })
 //Destroy route
 //handle destroy comment
-router.delete("/:commentId", (req, res)=>{
+router.delete("/:commentId",middleware.checkCommentOwnership, (req, res)=>{
   //find comment and delete
   Comment.findByIdAndRemove(req.params.commentId, (err)=>{
     if (err) {
