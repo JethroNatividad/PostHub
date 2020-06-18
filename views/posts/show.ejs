@@ -7,7 +7,7 @@
                   <h5 class="card-title text-center"><%= post.title %></h5>
                   <p class="card-text"><%= post.body %></p>
                   <p class="card-text"><small>posted by <a href="#"><%= post.author.username %></a></small></p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small>
+                    <p class="card-text"><small class="text-muted">Last updated <%= moment(post.dateCreated).fromNow() %></small>
                     
                     <% if(currentUser && currentUser._id.equals(post.author.id)){ %>
                     <a href="/posts/<%= post._id %>/edit">
@@ -42,7 +42,7 @@
                         </div>
                       </div>
                         <p>
-                          <small class="text-muted">3 mins ago</small>
+                          <small class="text-muted"><%= moment(comment.dateCreated).fromNow() %></small>
                      <% if(currentUser && currentUser._id.equals(comment.author.id)){ %>
                      <a href="/posts/<%= post._id %>/comments/<%= comment._id %>/edit">Edit</a>
                      <% } %>

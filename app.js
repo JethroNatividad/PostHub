@@ -18,6 +18,7 @@ app                    = express();
 let port = 3000;
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended:true}));
+app.locals.moment = require('moment');
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 app.use(flash())
