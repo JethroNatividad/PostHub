@@ -32,13 +32,25 @@
                       </div>
                     <div class="card-body">
                       <% post.comments.forEach((comment)=>{ %>
-                        <p><%= comment.author.username %> - <%= comment.text %>
-                        
+                      
+                      
+                      <div class="card bg-light" style="border-radius: 15px; <%= comment.text.length < 31 ? "display: inline-block;" : "" %>">
+                        <div class="m-2">
+                        <strong style="width: fit-content"><%= comment.author.username %></strong>
+                        <br/>
+                          <%= comment.text %>
+                        </div>
+                      </div>
+                        <p>
+                          <small class="text-muted">3 mins ago</small>
                      <% if(currentUser && currentUser._id.equals(comment.author.id)){ %>
                      <a href="/posts/<%= post._id %>/comments/<%= comment._id %>/edit">Edit</a>
                      <% } %>
                       </p>
                       <% }) %>
+                      
+                      
+                      
                     </div>
                   </div>
         <div class="col-md-3">
