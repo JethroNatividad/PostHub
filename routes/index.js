@@ -6,10 +6,16 @@ Comment                = require("../models/comment"),
 router                 = express.Router()
 //landing page
 router.get("/", (req, res)=>{
+  if (req.user) {
+    return res.redirect("/posts")
+  }
     res.render("landing");
 });
 //render sign up page
 router.get("/signup", (req, res)=>{
+  if (req.user) {
+    return res.redirect("/posts")
+  }
     res.render("index/signup", {page: "signup"})
 })
 //handle signup logic
@@ -31,6 +37,9 @@ router.post("/signup", (req, res)=>{
 })
 //render login page
 router.get("/login", (req, res)=>{
+  if (req.user) {
+    return res.redirect("/posts")
+  }
     res.render("index/login", {page: "login"})
 })
 //handle login logic

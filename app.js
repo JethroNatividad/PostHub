@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express          = require("express"),
 bodyParser             = require("body-parser"),
 mongoose               = require("mongoose"),
@@ -20,6 +21,7 @@ app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended:true}));
 app.locals.moment = require('moment');
 app.use(express.static("public"));
+app.use(express.static("assets"));
 app.use(methodOverride("_method"));
 app.use(flash())
 //mongoose
@@ -28,7 +30,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb+srv://jethrosama:undeadban07@master-2viyl.mongodb.net/posthublocal?retryWrites=true&w=majority");
+mongoose.connect(process.env.MONGOATLAS);
 //Passport Auth setup
 app.use(expressSession({
     secret: "nicenicenicenicenice",
