@@ -104,7 +104,7 @@ router.get("/:id/edit", middleware.checkPostOwnership, (req, res) => {
 //Update route
 //handle update logic
 router.put("/:id", middleware.checkPostOwnership, upload.single('image'), (req, res) => {
-  Post.findById(req.params.id, req.body.post, async function (err, data) {
+  Post.findById(req.params.id, req.body.post, async function(err, data) {
     if (err) {
       console.log(err)
       req.flash("Error", "Something went wrong")
@@ -118,7 +118,6 @@ router.put("/:id", middleware.checkPostOwnership, upload.single('image'), (req, 
         data.imageId = result.public_id;
       } catch (err) {
         if (err) {
-          throw err
           return res.redirect("back")
         }
       }
