@@ -1,4 +1,7 @@
 <%- include("../partials/top") %>
+<% if(typeof posts === "undefined" || !posts){ %>
+  <h1>There are no posts. Create one</h1>
+<% } else{ %> 
 <h1>Posts for you</h1>
 <div class="row">
   <div class="col-md-9">
@@ -45,5 +48,5 @@
     <% } %>
   </div>
 </div>
-
+<% } %> 
 <%- include("../partials/bot") %>
