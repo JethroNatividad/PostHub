@@ -3,6 +3,7 @@ const postSchema = new mongoose.Schema({
     title: String,
     image: String,
     body: String,
+    imageId: String,
     dateCreated: {type: Date, default:Date.now},
     author:{
         id: {type: mongoose.Schema.Types.ObjectId, ref: "User"},

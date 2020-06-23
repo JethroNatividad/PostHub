@@ -16,6 +16,7 @@ passportLocalMongoose  = require("passport-local-mongoose"),
 expressSession         = require("express-session"),
 seedDB                 = require("./seed"),
 app                    = express();
+
 let port = 3000;
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended:true}));
