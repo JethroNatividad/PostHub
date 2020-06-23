@@ -17,7 +17,7 @@ const express = require("express"),
   seedDB = require("./seed"),
   app = express();
 
-let port = 3000;
+let port = process.env.PORT || 80;
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({
   extended: true
