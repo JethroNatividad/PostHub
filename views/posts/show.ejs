@@ -1,75 +1,76 @@
-<%- include("../partials/top") %> 
-  <div class="row">
-        <div class="col-md-9">
-          <div class="card mb-3 mt-3">
-                <img src="<%= post.image %>" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title text-center"><%= post.title %></h5>
-                  <p class="card-text"><%= post.body %></p>
-                  <p class="card-text"><small>posted by <a href="#"><%= post.author.username %></a></small></p>
-                    <p class="card-text"><small class="text-muted">Last updated <%= moment(post.dateCreated).fromNow() %></small>
-                    
-                    <% if(currentUser && currentUser._id.equals(post.author.id)){ %>
-                    <a href="/posts/<%= post._id %>/edit">
-                      <i class="fas fa-cog"></i>
-                    </a>
-                    <% } %>
-                    </p>
-                  </div>
-                </div>
-                <div class="card mt-2">
-                    <div class="card-header">
-                      <form action="/posts/<%= post._id %>/comments" method="post">
-                        <div class="row cont">
-                          <div class="col-7 col-sm-9">
-                            <input type="text" name="comment[text]" class="form-control">
-                          </div>
-                          <div class="col-5 col-sm-3 ">
-                            <button class="btn btn-primary">Comment</i></button>
-                          </div>
-                        </div>
-                      </form>
-                      </div>
-                    <div class="card-body">
-                      <% post.comments.forEach((comment)=>{ %>
-                      <div class="card bg-light" style="border-radius: 15px; <%= comment.text.length < 31 ? "display: inline-block;" : "" %>">
-                        <div class="m-2">
-                        <strong style="width: fit-content"><%= comment.author.username %></strong>
-                        <br/>
-                          <%= comment.text %>
-                        </div>
-                      </div>
-                        <p>
-                          <small class="text-muted"><%= moment(comment.dateCreated).fromNow() %></small>
-                     <% if(currentUser && currentUser._id.equals(comment.author.id)){ %>
-                     <a href="/posts/<%= post._id %>/comments/<%= comment._id %>/edit">Edit</a>
-                     <% } %>
-                      </p>
-                      <% }) %>
-                      
-                      
-                      
-                    </div>
-                  </div>
-        </div>
-        <div class="col-md-3">
-          <% if(!currentUser){ %> 
-            <div style="position: fixed;" class="card p-2 d-none-sm">
-              <h3 class="mt-3">Login</h3>
-                <form action="/login" method="post">
-                <div class="form-group">
-                  <label for="username">Username</label>
-                  <input type="text" class="form-control" name="username">
-                </div>
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control" name="password">
-                </div>
-                <button class="btn btn-primary btn-block">Login</button>
-              </form>
-            </div>
+<%- include("../partials/top") %>
+<div class="row">
+  <div class="col-md-9">
+    <div class="card mb-3 mt-3">
+      <img src="<%= post.image %>" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title text-center"><%= post.title %></h5>
+        <p class="card-text"><%= post.body %></p>
+        <p class="card-text"><small>posted by <a href="#"><%= post.author.username %></a></small></p>
+        <p class="card-text"><small class="text-muted">Last updated <%= moment(post.dateCreated).fromNow() %></small>
+
+          <% if(currentUser && currentUser._id.equals(post.author.id)){ %>
+          <a href="/posts/<%= post._id %>/edit">
+            <i class="fas fa-cog"></i>
+          </a>
           <% } %>
+        </p>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-header">
+        <form action="/posts/<%= post._id %>/comments" method="post">
+          <div class="row cont">
+            <div class="col-7 col-sm-9">
+              <input type="text" name="comment[text]" class="form-control">
+            </div>
+            <div class="col-5 col-sm-3 ">
+              <button class="btn btn-primary">Comment</i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-body">
+        <% post.comments.forEach((comment)=>{ %>
+        <div class="card bg-light"
+          style="border-radius: 15px; <%= comment.text.length < 31 ? "display: inline-block;" : "" %>">
+          <div class="m-2">
+            <strong style="width: fit-content"><%= comment.author.username %></strong>
+            <br />
+            <%= comment.text %>
+          </div>
         </div>
+        <p>
+          <small class="text-muted"><%= moment(comment.dateCreated).fromNow() %></small>
+          <% if(currentUser && currentUser._id.equals(comment.author.id)){ %>
+          <a href="/posts/<%= post._id %>/comments/<%= comment._id %>/edit">Edit</a>
+          <% } %>
+        </p>
+        <% }) %>
+
+
+
+      </div>
+    </div>
   </div>
-  
-<%- include("../partials/bot") %> 
+  <div class="col-md-3">
+    <% if(!currentUser){ %>
+    <div style="position: fixed;" class="card p-2 d-none-sm">
+      <h3 class="mt-3">Login</h3>
+      <form action="/login" method="post">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" name="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password">
+        </div>
+        <button class="btn btn-primary btn-block">Login</button>
+      </form>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include("../partials/bot") %>

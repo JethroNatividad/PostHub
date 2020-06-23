@@ -1,7 +1,6 @@
-const Post                   = require("./models/post")
+const Post = require("./models/post")
 //seed
-var posts = [
-    {
+var posts = [{
         title: "Randompost",
         image: "https://images.unsplash.com/photo-1591993221022-c3b5ee009325?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
         body: "lorem ipsum basdhbahdbajdhbadfadfsadbhbfashfdbasdhfbasjdfbaskdfybasdsyfaskdfbs lorem ipsum lipsum    manbashdbfsbfsabfdsajbfashbfdashbd"
@@ -17,11 +16,11 @@ var posts = [
         body: "lorem ipsum basdhbahdbajdhbadfadfsadbhbfashfdbasdhfbasjdfbaskdfybasdsyfaskdfbs lorem ipsum lipsum    manbashdbfsbfsabfdsajbfashbfdashbd"
     }
 ]
-async function seedDB(){
+async function seedDB() {
     try {
         await Post.deleteMany({});
         console.log("deleted posts")
-        Post.create(posts, (err, data)=>{
+        Post.create(posts, (err, data) => {
             console.log(data)
         })
     } catch (error) {
