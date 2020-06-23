@@ -77,7 +77,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), (req, res) => {
 router.get("/:id", (req, res) => {
   Post.findById(req.params.id).populate("comments").exec((err, data) => {
     if (err) {
-      console.log(error)
+      console.log(err)
       req.flash("Error", "Something went wrong")
       return res.redirect("/posts")
     } else {
@@ -92,7 +92,7 @@ router.get("/:id", (req, res) => {
 router.get("/:id/edit", middleware.checkPostOwnership, (req, res) => {
   Post.findById(req.params.id, (err, data) => {
     if (err) {
-      console.log(error)
+      console.log(err)
       req.flash("Error", "Something went wrong")
       return res.redirect("/posts")
     }
@@ -106,7 +106,7 @@ router.get("/:id/edit", middleware.checkPostOwnership, (req, res) => {
 router.put("/:id", middleware.checkPostOwnership, upload.single('image'), (req, res) => {
   Post.findById(req.params.id, req.body.post, async function (err, data) {
     if (err) {
-      console.log(error)
+      console.log(err)
       req.flash("Error", "Something went wrong")
       return res.redirect("/posts")
     }

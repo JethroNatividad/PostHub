@@ -8,7 +8,8 @@
       <div class="card-body">
         <h5 class="card-title text-center"><%= post.title %></h5>
         <p class="card-text"><%= post.body %></p>
-        <p class="card-text"><small>posted by <a href="#"><%= post.author.username %></a></small></p>
+        <p class="card-text"><small>posted by <a
+              href="/users/<%= post.author.id %>"><%= post.author.username %></a></small></p>
         <p class="card-text"><small class="text-muted">Last updated <%= moment(post.dateCreated).fromNow()%></small>
           <% if(currentUser && currentUser._id.equals(post.author.id)){ %>
           <a href="/posts/<%= post._id %>/edit">

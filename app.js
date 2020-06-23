@@ -57,7 +57,7 @@ app.use((req, res, next) => {
 });
 //seedDB(); //seeder
 //routes
-app.use("/", indexRoute)
 app.use("/posts", postsRoute)
 app.use("/posts/:id/comments", commentsRoute)
+app.use("/", indexRoute)
 app.listen(port, () => console.log("server started"));

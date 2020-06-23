@@ -16,7 +16,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
   }
   Comment.create(req.body.comment, (err, comment) => {
     if (err) {
-      console.log(error)
+      console.log(err)
       return res.redirect("/")
     }
     //find post
@@ -25,7 +25,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
       post.comments.push(comment)
       post.save((err) => {
         if (err) {
-          console.log(error)
+          console.log(err)
           return res.redirect("/")
         }
         //redirect somewhere
@@ -39,7 +39,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
 router.get("/:commentId/edit", middleware.checkCommentOwnership, (req, res) => {
   Comment.findById(req.params.commentId, (err, comment) => {
     if (err) {
-      console.log(error)
+      console.log(err)
       return res.redirect("/")
     }
     res.render("comments/edit", {
@@ -54,7 +54,7 @@ router.put("/:commentId", middleware.checkCommentOwnership, (req, res) => {
   //find comment and update
   Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, (err) => {
     if (err) {
-      console.log(error)
+      console.log(err)
       return res.redirect("/")
     }
     //redirect somewhere
@@ -67,7 +67,7 @@ router.delete("/:commentId", middleware.checkCommentOwnership, (req, res) => {
   //find comment and delete
   Comment.findByIdAndRemove(req.params.commentId, (err) => {
     if (err) {
-      console.log(error)
+      console.log(err)
       return res.redirect("/")
     }
     //redirect somewhere

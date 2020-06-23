@@ -33,6 +33,7 @@ router.post("/signup", (req, res) => {
     }
     passport.authenticate("local")(req, res, () => {
       console.log(user)
+      req.flash("success", "Welcome to posthub, " + req.user.username)
       res.redirect("/posts")
     })
   })
@@ -59,4 +60,23 @@ router.get("/logout", (req, res) => {
   req.flash("success", "Sucessfully logged out")
   res.redirect("/posts")
 })
+//user profile
+router.get("/users/:id", (req, res) => {
+  User.findById(req.params.id, (err, user) => {
+    if (err) {
+      console.log(err)
+      req.flash("Error", "User not found")
+      return res.redirect("/posts")
+    }
+    Post.find().where("author.id").equals(user._id).exec((err, posts) => {
+      res.render("index/profile", {
+        user: user,
+        posts: posts
+      })
+    })
+  })
+})
+router.get("*", (req, res) => {
+  res.render("index/404");
+});
 module.exports = router
