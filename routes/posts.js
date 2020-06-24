@@ -44,14 +44,14 @@ router.get("/", (req, res) => {
 });
 //post new
 //show form
-router.get("/new", middleware.isLoggedIn, (req, res) => {
+router.get("/new", middleware.isLoggedIn, middleware.unlockRoute, (req, res) => {
   res.render("posts/new", {
     page: "create"
   })
 });
 //post create
 //handle create post logic
-router.post("/", middleware.isLoggedIn, upload.single('image'), (req, res) => {
+router.post("/", middleware.isLoggedIn, middleware.protectRoute, upload.single('image'), (req, res) => {
   cloudinary.uploader.upload(req.file.path, function (result) {
     // add cloudinary url for the image to the campground object under image property
     req.body.post.image = result.secure_url;
