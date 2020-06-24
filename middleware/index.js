@@ -48,7 +48,8 @@ middleware.checkPostOwnership = function (req, res, next) {
 middleware.protectRoute = function(req, res, next){
   if(!req.session.processing){
     req.session.processing = true; // set flag
-    next(); // continue in route chain
+    req.session.save(()=> next())
+   // continue in route chain
   } else {
     res.status(400).send() // end request here with 400 status code, drop everything
   }
@@ -56,6 +57,6 @@ middleware.protectRoute = function(req, res, next){
 
 middleware.unlockRoute = function(req, res, next){
   req.session.processing = false; // unset flag
-  next();
+  req.session.save(()=> next())
 };
 module.exports = middleware
