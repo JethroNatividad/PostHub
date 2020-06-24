@@ -63,7 +63,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), (req, res) => {
     }
     Post.create(req.body.post, (err) => {
       if (err) {
-        console.log(error)
+        console.log(err)
         req.flash("Error", "Something went wrong")
         return res.redirect("/posts")
       } else {
